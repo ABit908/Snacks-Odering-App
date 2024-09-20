@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createContext, useState } from "react";
-import { food_list } from "../assets/assets";
+// import { food_list } from "../assets/assets";
 
 export const StoreContext=createContext(null) 
 // this is Context API
@@ -8,6 +8,18 @@ export const StoreContext=createContext(null)
 const StoreContextProvider =(props)=>{
 
     const [cartItems,setCartItems]=useState({});
+
+    // while connecting with backend
+    const url="http://localhost:4000"
+    const [token,setToken]=useState("")
+
+// showing only those data which is stored in the database
+        const [food_list,setFoodList]=useState([]);
+
+
+
+
+
     const addToCart =(itemId)=>{
         if(!cartItems[itemId])
         {
@@ -34,6 +46,28 @@ const StoreContextProvider =(props)=>{
         }
         return totalAmount;
     }
+    // fetching food list from the database 
+
+
+
+
+
+
+
+
+
+
+    // After refreshing we logout from the page so for stopping this I'm writing this function
+    useEffect(()=>{
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"))
+            }
+    },[])
+
+
+
+
+
 
     const contextValue={
         food_list,
@@ -41,7 +75,10 @@ const StoreContextProvider =(props)=>{
         setCartItems,
         addToCart,
         removeFromCart,
-        getTotalCartAmount
+        getTotalCartAmount,
+        url,
+        token,
+        setToken
     }
     return (
         <StoreContext.Provider value={contextValue}>

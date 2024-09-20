@@ -68,7 +68,7 @@ const Add = ({url}) => {
           <label htmlFor="image">
             <img src={image?URL.createObjectURL(image):assets.upload_area} alt="" />
           </label>
-          <input onChange={(e)=>setImage(e.target.files[0])} type="file" id='image' hidden required/>
+          <input onChange={(e)=>setImage(e.target.files[0])}  type="file" id='image' hidden required/>
         </div>
         <div className="add-product-name flex-col">
           <p>Product Name</p>
