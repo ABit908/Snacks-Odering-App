@@ -4,6 +4,8 @@ import { connectDB } from "./config/db.js"
 import foodRouter from "./routes/foodRoute.js"
 import userRouter from "./routes/userRoute.js"
 import 'dotenv/config'
+import cartRouter from "./routes/cartRoute.js"
+import orderRouter from "./routes/orderRoute.js"
 
 
 
@@ -26,8 +28,10 @@ connectDB();
 app.use("/api/food",foodRouter)
 app.use("/images",express.static('uploads'))    // for accessing image which is uploaded from uploads file for ex. http://localhost:400/images/1725368060013food_5.png
 app.use("/api/user",userRouter)
-
-
+//cart items of user
+app.use("/api/cart",cartRouter)
+//place orderRoute
+app.use("/api/order",orderRouter)
 
 app.get("/",(req,res)=>{
     res.send("API Working")

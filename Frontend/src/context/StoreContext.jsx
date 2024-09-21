@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { createContext, useState } from "react";
 // import { food_list } from "../assets/assets";
@@ -20,7 +21,7 @@ const StoreContextProvider =(props)=>{
 
 
 
-    const addToCart =(itemId)=>{
+    const addToCart =async (itemId)=>{
         if(!cartItems[itemId])
         {
             setCartItems((prev)=>({...prev,[itemId]:1}));
@@ -28,13 +29,21 @@ const StoreContextProvider =(props)=>{
         else {
             setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}));
         }
+        if(token){
+            await axios.post(url+"/api/cart/add",{itemId},{headers:{token}});
+        }
     }
-    const removeFromCart =(itemId)=>{
+    const removeFromCart =async (itemId)=>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}));
+        if(token){
+            await axios.post(url +"/api/cart/remove",{itemId},{headers:{token}});
+        }
     }
     /*// useEffect(()=>{
     //     console.log(cartItems);
     // },[cartItems])*/
+
+    
     const getTotalCartAmount=()=>{
         let totalAmount=0;
         for(const item in cartItems)
@@ -48,9 +57,18 @@ const StoreContextProvider =(props)=>{
     }
     // fetching food list from the database 
 
+    const fetchFoodList =async ()=>{
+        const responce =await axios.get(url+"/api/food/list");
+        setFoodList(responce.data.data);
+    }
 
 
+// for resolving the error that is if we refresh the page the "+" sign increases data get off 
 
+const loadCartData=async (token)=>{
+    const responce=await axios.post(url+"/api/cart/get",{},{headers:{token}});
+    setCartItems(responce.data.cartData);
+}
 
 
 
@@ -59,9 +77,16 @@ const StoreContextProvider =(props)=>{
 
     // After refreshing we logout from the page so for stopping this I'm writing this function
     useEffect(()=>{
+        async function loadData(){
+            await fetchFoodList();
+
             if(localStorage.getItem("token")){
-                setToken(localStorage.getItem("token"))
+                setToken(localStorage.getItem("token"));
+                await loadCartData(localStorage.getItem("token"));
             }
+        }
+        loadData();
+            
     },[])
 
 
