@@ -22,7 +22,7 @@ const placeOrder=async (req,res)=>{
         await newOrder.save();
         await userModel.findByIdAndUpdate(req.body.userId,{cartData:{}});
 
-        const line_items=req.body.items.map((item)=>({
+        const line_items=req.body.items.map((item)=>({  //line_items is necessary for the stripe payments
             price_data:{
                 currency:"inr",
                 product_data:{
@@ -56,6 +56,23 @@ const placeOrder=async (req,res)=>{
         res.json({success:false,message:"Error"});
     }
 }
+// for verifying the order Payment
+const verifyOrder=async(req,res)=>{
+    const {orderId,success}=req.body;
+    try {
+        if(success=="true")
+        {
+            await orderModel.findByIdAndUpdate(orderId,{payment:true});
+            res.json({success:true,message:"Paid"});
+        }
+        else {
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({success:false,message:"Not Paid"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:"Error"});
+    }
+}
 
-
-export {placeOrder}
+export {placeOrder,verifyOrder}
