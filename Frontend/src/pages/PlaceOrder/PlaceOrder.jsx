@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext'
 import './PlaceOrder.css'
 const PlaceOrder = () => {
@@ -59,7 +60,18 @@ const placeOrder=async (event) =>{
     }
 }
 
+const navigate=useNavigate();
 
+// until the user not login they are no allowed to get place order page
+useEffect(()=>{
+  if(!token)
+  {
+    navigate('/cart');
+  }
+  else if(getTotalCartAmount()==0){
+      navigate('/cart')
+  }
+},[token])
 
 
   return (

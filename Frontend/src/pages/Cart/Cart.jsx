@@ -20,11 +20,12 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item,index)=>{
+        {/* {
+        food_list.map((item,index)=>{
           if(cartItems[item._id]>0) {
             return (
              <div>
-               <div className="cart-items-title cart-items-item ">
+               <div key={index} className="cart-items-title cart-items-item ">
                   <img src={url +"/images/" +item.image}alt="" />
                   <p>{item.name}</p>
                   <p>Rs {item.price}</p>
@@ -36,7 +37,29 @@ const Cart = () => {
              </div>
             )
           }
-        })}
+        })} */}
+        {
+  food_list.map((item, index) => {
+    if (cartItems[item._id] > 0) {
+      return (
+        <div key={index}>
+          <div className="cart-items-title cart-items-item">
+            <img src={url + "/images/" + item.image} alt="" />
+            <p>{item.name}</p>
+            <p>Rs {item.price}</p>
+            <p>{cartItems[item._id]}</p>
+            <p>Rs {item.price * cartItems[item._id]}</p>
+            <p className="cross" onClick={() => removeFromCart(item._id)}>X</p>
+          </div>
+          <hr />
+        </div>
+      );
+    }
+    return null; // Always return something from map
+  })
+}
+
+        
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
