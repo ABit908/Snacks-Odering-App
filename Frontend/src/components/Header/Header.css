@@ -33,6 +33,11 @@
     background-color: white;
     font-size: max(1vw,13px);
     border-radius: 50px;
+    
+}
+.header-contents button:hover{
+    transform: scale(0.9);
+    cursor: pointer;
 }
 @media(max-width:1050px)
 {
