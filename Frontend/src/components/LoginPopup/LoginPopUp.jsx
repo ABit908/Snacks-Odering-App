@@ -73,13 +73,14 @@ const onLogin=async(event)=>{
            <input name='email' onChange={onChangeHandler} value={data.email} type="email" placeholder='Your Email' required />
           <input name='password' onChange={onChangeHandler} value={data.password} type="password" placeholder='Password' required />
         </div>
-        <button type='submit'>{curState==="Sign Up"?"Create Account":"Login"}</button>
         <div>
           <div className="login-popup-condition">
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-          <input type="checkbox" required />
+            <input type="checkbox" required />
+            <p>By continuing, I agree to the terms of use & privacy policy.</p>
           </div>
         </div>
+        <button type='submit'>{curState==="Sign Up"?"Create Account":"Login"}</button>
+       
         {curState=="Login"
         ?<p>Create a new Account? <span onClick={()=> setCurState("Sign Up")}>Click here</span></p>
         :<p>Already have an account? <span onClick={()=> setCurState("Login")}>Login here</span></p>}
