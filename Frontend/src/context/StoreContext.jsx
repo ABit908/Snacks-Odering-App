@@ -10,15 +10,12 @@ const StoreContextProvider =(props)=>{
 
     const [cartItems,setCartItems]=useState({});
 
-    // while connecting with backend
+// while connecting with backend
     const url="https://snackster-backend.onrender.com"
     const [token,setToken]=useState("")
 
-// showing only those data which is stored in the database
+    // showing only those data which is stored in the database
         const [food_list,setFoodList]=useState([]);
-
-
-
 
 
     const addToCart =async (itemId)=>{
@@ -55,6 +52,7 @@ const StoreContextProvider =(props)=>{
         }
         return totalAmount;
     }
+
     // fetching food list from the database 
 
     const fetchFoodList =async ()=>{
@@ -65,17 +63,12 @@ const StoreContextProvider =(props)=>{
 
 // for resolving the error that is if we refresh the page the "+" sign increases data get off 
 
-const loadCartData=async (token)=>{
+    const loadCartData=async (token)=>{
     const responce=await axios.post(url+"/api/cart/get",{},{headers:{token}});
     setCartItems(responce.data.cartData);
 }
 
-
-
-
-
-
-    // After refreshing we logout from the page so for stopping this I'm writing this function
+     // After refreshing we logout from the page so for stopping this I'm writing this function
     useEffect(()=>{
         async function loadData(){
             await fetchFoodList();
@@ -89,12 +82,7 @@ const loadCartData=async (token)=>{
             
     },[])
 
-
-
-
-
-
-    const contextValue={
+     const contextValue={
         food_list,
         cartItems,
         setCartItems,
