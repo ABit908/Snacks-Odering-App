@@ -20,7 +20,7 @@ const navigate=useNavigate();
 const verifyPayment=async()=>{
   const responce=await axios.post(url +"/api/order/verify",{success,orderId})
   if(responce.data.success){
-      navigate("/myorders");
+      navigate("https://Snackster.onrender.com/myorders");
   }
   else{
     navigate("/")
