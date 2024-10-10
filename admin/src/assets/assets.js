@@ -13,5 +13,5 @@ export const assets ={
     upload_area,
     parcel_icon
 }
-
-export const url = 'http://localhost:4000'
+export const currency='₹'
+export const url = 'https://snackster-backend.onrender.com'
