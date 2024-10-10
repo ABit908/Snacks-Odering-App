@@ -76,8 +76,8 @@ const onLogin=async(event)=>{
         <button type='submit'>{curState==="Sign Up"?"Create Account":"Login"}</button>
         <div>
           <div className="login-popup-condition">
-            <input type="checkbox" required />
-            <p>By continuing, I agree to the terms of use & privacy policy.</p>
+          <p>By continuing, I agree to the terms of use & privacy policy.</p>
+          <input type="checkbox" required />
           </div>
         </div>
         {curState=="Login"
