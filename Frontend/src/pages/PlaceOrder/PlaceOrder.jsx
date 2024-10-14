@@ -56,7 +56,7 @@ const placeOrder=async (event) =>{
       window.location.replace(session_url);
     }
     else {
-      alert("Error");
+      alert("Order Placed");
     }
 }
 
