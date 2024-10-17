@@ -17,12 +17,12 @@ const port =process.env.PORT || 4000
 
 //middleware
 app.use(express.json())     //this is first middleware ,whenever we will get the request from the frontend to backend that will passed using this json
-// app.use(cors())   //we can access the backend from frontend
-app.use(cors({
-    origin: 'https://snackster.onrender.com', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  }));
+app.use(cors()); //we can access the backend from frontend
+// app.use(cors({
+//     origin: 'https://snackster.onrender.com', 
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true
+//   }));
 
 //DB connection
 connectDB();
