@@ -31,20 +31,18 @@ const FoodDisplay = ({ category }) => {
     const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
-        // Simulate a 3-second delay for loading images
-        const timer = setTimeout(() => {
-            setLoading(false); // After 3 seconds, stop showing the placeholder
-        }, 3000);
-
-        return () => clearTimeout(timer); // Cleanup the timer
-    }, []);
+        // Simulate data fetching (replace with your actual fetch logic)
+        if (food_list.length > 0) {
+            setLoading(false); // Stop loading when data is available
+        }
+    }, [food_list]);
 
     return (
         <div className='food-display' id="food-Display">
             <h2>Top Dishes near you</h2>
             <div className="food-display-list">
                 {loading ? (
-                    // Display placeholders while loading
+                    // Display placeholders while fetching data
                     [...Array(6)].map((_, index) => (
                         <div key={index} className="placeholder"></div>
                     ))
